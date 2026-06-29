@@ -1,0 +1,7 @@
+﻿JUnit version 4.13.2
+.JUnit is successfully configured in the project!
+
+Time: 0.007
+
+OK (1 test)
+

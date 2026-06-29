@@ -1,0 +1,12 @@
+﻿JUnit version 4.13.2
+.[SetUp] Created BankAccount with initial balance: $100.0
+Running testWithdraw...
+[TearDown] Cleaned up BankAccount instance
+.[SetUp] Created BankAccount with initial balance: $100.0
+Running testDeposit...
+[TearDown] Cleaned up BankAccount instance
+
+Time: 0.009
+
+OK (2 tests)
+

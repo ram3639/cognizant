@@ -1,0 +1,59 @@
+-- PL/SQL Exercises Schema Setup
+-- Dropping existing tables if they exist to ensure clean execution
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE Loans CASCADE CONSTRAINTS';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE Accounts CASCADE CONSTRAINTS';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE Customers CASCADE CONSTRAINTS';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE Employees CASCADE CONSTRAINTS';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
+
+-- 1. Create Customers Table
+CREATE TABLE Customers (
+    CustomerID NUMBER PRIMARY KEY,
+    Name VARCHAR2(100) NOT NULL,
+    DOB DATE NOT NULL,
+    Balance NUMBER(15,2) DEFAULT 0.00,
+    IsVIP VARCHAR2(5) DEFAULT 'FALSE' CHECK (IsVIP IN ('TRUE', 'FALSE'))
+);
+
+-- 2. Create Loans Table
+CREATE TABLE Loans (
+    LoanID NUMBER PRIMARY KEY,
+    CustomerID NUMBER REFERENCES Customers(CustomerID) ON DELETE CASCADE,
+    InterestRate NUMBER(5,2) NOT NULL,
+    LoanAmount NUMBER(15,2) NOT NULL,
+    DueDate DATE NOT NULL
+);
+
+-- 3. Create Accounts Table
+CREATE TABLE Accounts (
+    AccountID NUMBER PRIMARY KEY,
+    CustomerID NUMBER REFERENCES Customers(CustomerID) ON DELETE CASCADE,
+    AccountType VARCHAR2(50) NOT NULL CHECK (AccountType IN ('Savings', 'Checking')),
+    Balance NUMBER(15,2) DEFAULT 0.00
+);
+
+-- 4. Create Employees Table
+CREATE TABLE Employees (
+    EmployeeID NUMBER PRIMARY KEY,
+    Name VARCHAR2(100) NOT NULL,
+    Department VARCHAR2(50) NOT NULL,
+    Salary NUMBER(15,2) NOT NULL
+);
